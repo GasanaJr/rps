@@ -21,5 +21,10 @@ public class SceneManagerScript : MonoBehaviour
         SceneManager.LoadScene(1);
     }
 
+    public void LoadGame()
+    {
+        SceneManager.LoadScene(3);
+    }
+
 
 }
