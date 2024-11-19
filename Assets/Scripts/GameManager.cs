@@ -20,7 +20,12 @@ public class GameManager : MonoBehaviour
     private Choices player;
     private Choices computer;
     private bool canPlay = true;
-    
+
+    public TextMeshProUGUI playerScore;
+    private int playerCount = 0;
+    public TextMeshProUGUI computerScore;
+    private int computerCount = 0;
+
     void Start()
     {
         replay.interactable = false;
@@ -35,6 +40,7 @@ public class GameManager : MonoBehaviour
     {
         if (!canPlay) return;
         playerChoice.GetComponent<Image>().enabled = true;
+        
 
         player = (Choices)System.Enum.Parse(typeof(Choices), choice, true);
 
@@ -84,10 +90,14 @@ public class GameManager : MonoBehaviour
             (player == Choices.Scissors && computer == Choices.Paper) ||
             (player == Choices.Paper && computer == Choices.Rock))
         {
+            playerCount++;
+            playerScore.text = $"Score: {playerCount}";
             return "Player Wins!";
         }
         else
         {
+            computerCount++;
+            computerScore.text = $"Score: {computerCount}";
             return "Computer Wins!";
         }
     }
