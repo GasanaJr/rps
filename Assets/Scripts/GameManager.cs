@@ -50,7 +50,56 @@ public class GameManager : MonoBehaviour
                 playerChoice.sprite = scissors;
                 break;
         }
-    } 
+    }
+
+    public void Shoot()
+    {
+        if (!canPlay) return;
+        canPlay = false;
+        replay.interactable = true;
+        computer = (Choices)Random.Range(0, 3);
+        computerChoice.GetComponent<Image>().enabled = true;
+
+        switch (computer)
+        {
+            case Choices.Rock:
+                computerChoice.sprite = rock;
+                break;
+            case Choices.Paper:
+                computerChoice.sprite = paper;
+                break;
+            case Choices.Scissors:
+                computerChoice.sprite = scissors;
+                break;
+        }
+
+        string result = DetermineWinner(player, computer);
+        resultText.text = result;
+    }
+
+    private string DetermineWinner(Choices player, Choices computer)
+    {
+        if (player == computer) return "It's a draw!";
+        if ((player == Choices.Rock && computer == Choices.Scissors) ||
+            (player == Choices.Scissors && computer == Choices.Paper) ||
+            (player == Choices.Paper && computer == Choices.Rock))
+        {
+            return "Player Wins!";
+        }
+        else
+        {
+            return "Computer Wins!";
+        }
+    }
+
+    public void Replay()
+    {
+        canPlay = true;
+        replay.interactable = false;
+        playerChoice.GetComponent<Image>().enabled = false;
+        computerChoice.GetComponent<Image>().enabled = false;
+        resultText.text = "Rock, Paper, or Scissors!";
+    }
 
     public enum Choices
     {
