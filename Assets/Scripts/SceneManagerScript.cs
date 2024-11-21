@@ -26,5 +26,10 @@ public class SceneManagerScript : MonoBehaviour
         SceneManager.LoadScene(3);
     }
 
+    public void LoadPlayerVsPlayer()
+    {
+        SceneManager.LoadScene(4);
+    }
+
 
 }
