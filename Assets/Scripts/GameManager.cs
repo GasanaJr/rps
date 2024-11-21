@@ -9,9 +9,13 @@ public class GameManager : MonoBehaviour
     public Image playerChoice;
     public Image computerChoice;
     public TextMeshProUGUI resultText;
+    public TextMeshProUGUI gameOverText;
+
+    public SceneManagerScript sceneManager;
 
     public Button shoot;
     public Button replay;
+    public Button quit;
 
     public Sprite rock;
     public Sprite paper;
@@ -26,6 +30,8 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI computerScore;
     private int computerCount = 0;
 
+    public GameObject panel;
+
     void Start()
     {
         replay.interactable = false;
@@ -34,6 +40,7 @@ public class GameManager : MonoBehaviour
         computerChoice.GetComponent<Image>().enabled = false;
         playerChoice.sprite = null;
         computerChoice.sprite = null;
+        panel.SetActive(false);
     }
 
     public void SetPlayerChoice(string choice)
@@ -109,6 +116,29 @@ public class GameManager : MonoBehaviour
         playerChoice.GetComponent<Image>().enabled = false;
         computerChoice.GetComponent<Image>().enabled = false;
         resultText.text = "Rock, Paper, or Scissors!";
+    }
+
+    public void QuitClicked()
+    {
+        StartCoroutine(EndGame());
+    }
+
+    private IEnumerator EndGame()
+    {
+        if (playerCount > computerCount)
+        {
+            gameOverText.text = "Game over! Player Wins";
+        } else if (playerCount < computerCount)
+        {
+            gameOverText.text = "Game over! Computer Wins";
+        } else
+        {
+            gameOverText.text = "Game over! It's a Draw";
+        }
+        panel.SetActive(true);
+        yield return new WaitForSeconds(3f);
+        sceneManager.LoadMainMenu();
+        
     }
 
     public enum Choices
