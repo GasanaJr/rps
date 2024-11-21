@@ -3,15 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class PlayerVsPlayer : MonoBehaviour
 {
     public Image player1Choice;
     public Image player2Choice;
     public TextMeshProUGUI resultText;
+    public TextMeshProUGUI gameOverText;
+
+    public SceneManagerScript sceneManager;
 
     public Button shoot;
     public Button replay;
+    public Button quit;
 
     public Sprite rock;
     public Sprite paper;
@@ -25,6 +30,7 @@ public class PlayerVsPlayer : MonoBehaviour
     private int playerCount = 0;
     public TextMeshProUGUI player2Score;
     private int player2Count = 0;
+    public GameObject panel;
 
     void Start()
     {
@@ -35,6 +41,7 @@ public class PlayerVsPlayer : MonoBehaviour
         player1Choice.sprite = null;
         player2Choice.sprite = null;
         Cursor.visible = false;
+        panel.SetActive(false);
     }
 
     private void Update()
@@ -138,6 +145,31 @@ public class PlayerVsPlayer : MonoBehaviour
         player2Choice.GetComponent<Image>().enabled = false;
         resultText.text = "Player 1: Make your choice!";
         GetPlayerChoice();
+    }
+
+    public void QuitClicked()
+    {
+        StartCoroutine(EndGame());
+    }
+
+    private IEnumerator EndGame()
+    {
+        if (playerCount > player2Count)
+        {
+            gameOverText.text = "Game over! Player1 Wins";
+        }
+        else if (playerCount < player2Count)
+        {
+            gameOverText.text = "Game over! Player2 Wins";
+        }
+        else
+        {
+            gameOverText.text = "Game over! It's a Draw";
+        }
+        panel.SetActive(true);
+        yield return new WaitForSeconds(3f);
+        sceneManager.LoadMainMenu();
+
     }
 
     public enum Choices
