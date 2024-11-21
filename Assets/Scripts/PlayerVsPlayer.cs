@@ -141,6 +141,7 @@ public class PlayerVsPlayer : MonoBehaviour
         canPlay = true;
         isPlayer1Turn = true;
         replay.interactable = false;
+        Cursor.visible = false;
         player1Choice.GetComponent<Image>().enabled = false;
         player2Choice.GetComponent<Image>().enabled = false;
         resultText.text = "Player 1: Make your choice!";
