@@ -1367,6 +1367,7 @@ GameObject:
   - component: {fileID: 731581228}
   - component: {fileID: 731581232}
   - component: {fileID: 731581233}
+  - component: {fileID: 731581234}
   m_Layer: 0
   m_Name: Canvas
   m_TagString: Untagged
@@ -1491,20 +1492,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c69780915085e43718abd0657c75fcf5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerChoice: {fileID: 649293448}
-  computerChoice: {fileID: 87586518}
+  uiManager: {fileID: 731581234}
+  sceneManager: {fileID: 322938481}
+--- !u!114 &731581234
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 731581227}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9226869350f8541b1ba53212ea623cd0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerChoiceImage: {fileID: 649293448}
+  computerChoiceImage: {fileID: 87586518}
   resultText: {fileID: 1349159228}
   gameOverText: {fileID: 456925838}
-  sceneManager: {fileID: 322938481}
-  shoot: {fileID: 1526863789}
-  replay: {fileID: 1212246358}
-  quit: {fileID: 1636774485}
-  rock: {fileID: 21300000, guid: 7013c5c7462da4d258e3aa0f800890b7, type: 3}
-  paper: {fileID: 21300000, guid: 7bf88028ee49948ebad6e22b0ae3ecbc, type: 3}
-  scissors: {fileID: 21300000, guid: 2c99eac313a3f4f628134077fa6cbd5c, type: 3}
-  playerScore: {fileID: 738211272}
-  computerScore: {fileID: 287176068}
+  playerScoreText: {fileID: 738211272}
+  computerScoreText: {fileID: 287176068}
   panel: {fileID: 322938477}
+  replayButton: {fileID: 1212246358}
+  rockSprite: {fileID: 21300000, guid: 7013c5c7462da4d258e3aa0f800890b7, type: 3}
+  paperSprite: {fileID: 21300000, guid: 7bf88028ee49948ebad6e22b0ae3ecbc, type: 3}
+  scissorsSprite: {fileID: 21300000, guid: 2c99eac313a3f4f628134077fa6cbd5c, type: 3}
 --- !u!1 &738211270
 GameObject:
   m_ObjectHideFlags: 0
@@ -2238,17 +2250,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1526863789 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7537117287054551810, guid: 5f250f25b162085489b3dfc92c78a5e4, type: 3}
-  m_PrefabInstance: {fileID: 659242082}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1610987337
 GameObject:
   m_ObjectHideFlags: 0
@@ -2603,17 +2604,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 7537117287054551837, guid: 5f250f25b162085489b3dfc92c78a5e4, type: 3}
   m_PrefabInstance: {fileID: 1636774483}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1636774485 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7537117287054551810, guid: 5f250f25b162085489b3dfc92c78a5e4, type: 3}
-  m_PrefabInstance: {fileID: 1636774483}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1798144851
 PrefabInstance:
   m_ObjectHideFlags: 0

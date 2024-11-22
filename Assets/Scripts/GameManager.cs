@@ -6,116 +6,43 @@ using TMPro;
 
 public class GameManager : MonoBehaviour
 {
-    public Image playerChoice;
-    public Image computerChoice;
-    public TextMeshProUGUI resultText;
-    public TextMeshProUGUI gameOverText;
-
+    public UIManager uiManager;
     public SceneManagerScript sceneManager;
+    public GameLogic gameLogic = new();
 
-    public Button shoot;
-    public Button replay;
-    public Button quit;
-
-    public Sprite rock;
-    public Sprite paper;
-    public Sprite scissors;
-
-    private Choices player;
-    private Choices computer;
     private bool canPlay = true;
 
-    public TextMeshProUGUI playerScore;
-    private int playerCount = 0;
-    public TextMeshProUGUI computerScore;
-    private int computerCount = 0;
-
-    public GameObject panel;
-
-    void Start()
+    private void Start()
     {
-        replay.interactable = false;
-        resultText.text = "Rock, Paper, or Scissors!";
-        playerChoice.GetComponent<Image>().enabled = false;
-        computerChoice.GetComponent<Image>().enabled = false;
-        playerChoice.sprite = null;
-        computerChoice.sprite = null;
-        panel.SetActive(false);
+        canPlay = true;
+        uiManager.InitializeUI();
     }
 
     public void SetPlayerChoice(string choice)
     {
         if (!canPlay) return;
-        playerChoice.GetComponent<Image>().enabled = true;
-        
-
-        player = (Choices)System.Enum.Parse(typeof(Choices), choice, true);
-
-        switch (player)
-        {
-            case Choices.Rock:
-                playerChoice.sprite = rock;
-                break;
-            case Choices.Paper:
-                playerChoice.sprite = paper;
-                break;
-            case Choices.Scissors:
-                playerChoice.sprite = scissors;
-                break;
-        }
+        uiManager.ShowPlayerChoice(choice);
+        gameLogic.SetPlayerChoice(choice);
     }
 
     public void Shoot()
     {
         if (!canPlay) return;
         canPlay = false;
-        replay.interactable = true;
-        computer = (Choices)Random.Range(0, 3);
-        computerChoice.GetComponent<Image>().enabled = true;
+        uiManager.EnableReplay(true);
+        gameLogic.GenerateComputerChoice();
+        uiManager.ShowComputerChoice(gameLogic.ComputerChoice.ToString());
 
-        switch (computer)
-        {
-            case Choices.Rock:
-                computerChoice.sprite = rock;
-                break;
-            case Choices.Paper:
-                computerChoice.sprite = paper;
-                break;
-            case Choices.Scissors:
-                computerChoice.sprite = scissors;
-                break;
-        }
-
-        string result = DetermineWinner(player, computer);
-        resultText.text = result;
-    }
-
-    private string DetermineWinner(Choices player, Choices computer)
-    {
-        if (player == computer) return "It's a draw!";
-        if ((player == Choices.Rock && computer == Choices.Scissors) ||
-            (player == Choices.Scissors && computer == Choices.Paper) ||
-            (player == Choices.Paper && computer == Choices.Rock))
-        {
-            playerCount++;
-            playerScore.text = $"Score: {playerCount}";
-            return "Player Wins!";
-        }
-        else
-        {
-            computerCount++;
-            computerScore.text = $"Score: {computerCount}";
-            return "Computer Wins!";
-        }
+        string result = gameLogic.DetermineWinner();
+        uiManager.UpdateScores(gameLogic.PlayerScore, gameLogic.ComputerScore);
+        uiManager.DisplayResult(result);
     }
 
     public void Replay()
     {
         canPlay = true;
-        replay.interactable = false;
-        playerChoice.GetComponent<Image>().enabled = false;
-        computerChoice.GetComponent<Image>().enabled = false;
-        resultText.text = "Rock, Paper, or Scissors!";
+        uiManager.ResetUI();
+        gameLogic.ResetChoices();
     }
 
     public void QuitClicked()
@@ -125,26 +52,11 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator EndGame()
     {
-        if (playerCount > computerCount)
-        {
-            gameOverText.text = "Game over! Player Wins";
-        } else if (playerCount < computerCount)
-        {
-            gameOverText.text = "Game over! Computer Wins";
-        } else
-        {
-            gameOverText.text = "Game over! It's a Draw";
-        }
-        panel.SetActive(true);
+        string finalMessage = gameLogic.GetFinalResult();
+        uiManager.ShowGameOverPanel(finalMessage);
         yield return new WaitForSeconds(3f);
         sceneManager.LoadMainMenu();
-        
     }
 
-    public enum Choices
-    {
-        Rock,
-        Paper,
-        Scissors
-    }
+
 }
