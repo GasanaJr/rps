@@ -22,7 +22,9 @@ For Multiplayer the controls are as follows:
 #### Player 2
 - 7 - Rock
 - 8 - Paper
-- 9 - Scissors 
+- 9 - Scissors
+
+The UI package used is GentleLand [Found Here](https://assetstore.unity.com/publishers/35710)
 
 
 
